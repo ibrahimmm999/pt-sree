@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:sree/home_page.dart';
+import 'package:provider/provider.dart';
+import 'package:sree/detail_product_page.dart';
+import 'package:sree/providers/page_provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,9 +13,14 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: HomePage(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => PageProvider()),
+      ],
+      child: const MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: DetailProductPage(),
+      ),
     );
   }
 }
