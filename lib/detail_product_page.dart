@@ -59,12 +59,15 @@ class DetailProductPage extends StatelessWidget {
       return Container(
         margin: const EdgeInsets.only(
           top: 130,
-          bottom: 24,
+          left: 20,
+          right: 20,
         ),
         padding: const EdgeInsets.all(16),
         width: double.infinity,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(defaultRadius),
+              topRight: Radius.circular(defaultRadius)),
           color: Colors.white,
         ),
         child: Column(
@@ -149,8 +152,6 @@ class DetailProductPage extends StatelessWidget {
       return ListView(
         padding: const EdgeInsets.only(
           top: 80,
-          left: 20,
-          right: 20,
           bottom: 20,
         ),
         children: [
@@ -188,49 +189,55 @@ class DetailProductPage extends StatelessWidget {
             ],
           ),
           card(),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Basic Information",
-                style: primaryText,
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Text("IUPAC Name : C10H16", style: primaryText),
-              SizedBox(
-                height: 20,
-              ),
-              Text("Appearance : Clear Liquid", style: primaryText),
-              SizedBox(
-                height: 20,
-              ),
-              Text("Common Name : Dipentene", style: primaryText),
-              SizedBox(
-                height: 20,
-              ),
-              Text("Industry", style: primaryText),
-              SizedBox(
-                height: 20,
-              ),
-              Text("Pine Derivative : Lorem ipsum dolor sit",
-                  style: primaryText),
-              SizedBox(
-                height: 20,
-              ),
-              Text("Lorem ipsum dolor sit amet : Pine Derivative",
-                  style: primaryText),
-              const SizedBox(
-                height: 48,
-              ),
-              changeContent(),
-              const SizedBox(
-                height: 20,
-              ),
-              buildContent()
-            ],
+          Container(
+            decoration: const BoxDecoration(color: Colors.white),
+            width: MediaQuery.of(context).size.width,
+            padding: EdgeInsets.symmetric(
+                horizontal: defaultMargin, vertical: defaultMargin * 2),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Basic Information",
+                  style: primaryText,
+                ),
+                SizedBox(
+                  height: defaultMargin,
+                ),
+                Text("IUPAC Name : C10H16", style: primaryText),
+                SizedBox(
+                  height: defaultMargin,
+                ),
+                Text("Appearance : Clear Liquid", style: primaryText),
+                SizedBox(
+                  height: defaultMargin,
+                ),
+                Text("Common Name : Dipentene", style: primaryText),
+                SizedBox(
+                  height: defaultMargin,
+                ),
+                Text("Industry", style: primaryText),
+                SizedBox(
+                  height: defaultMargin,
+                ),
+                Text("Pine Derivative : Lorem ipsum dolor sit",
+                    style: primaryText),
+                SizedBox(
+                  height: defaultMargin,
+                ),
+                Text("Lorem ipsum dolor sit amet : Pine Derivative",
+                    style: primaryText),
+                const SizedBox(
+                  height: 48,
+                ),
+                changeContent(),
+                SizedBox(
+                  height: defaultMargin,
+                ),
+                buildContent()
+              ],
+            ),
           )
         ],
       );
