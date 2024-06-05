@@ -255,29 +255,33 @@ class DetailProductPage extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Icon(Icons.chat),
-                    SizedBox(
-                      width: 18,
-                    ),
-                    Icon(Icons.shopping_cart),
-                    SizedBox(
-                      width: 18,
-                    ),
-                    Expanded(
-                      child: TextButton(
-                          style: ButtonStyle(
-                              backgroundColor:
-                                  MaterialStatePropertyAll(Color(0xff123C69))),
-                          onPressed: () {},
-                          child: Text(
-                            "Send Inquiry",
-                            style: TextStyle(color: Colors.white),
-                          )),
-                    )
-                  ],
+                Container(
+                  decoration:
+                      BoxDecoration(color: Colors.white.withOpacity(0.8)),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Icon(Icons.chat),
+                      const SizedBox(
+                        width: 18,
+                      ),
+                      const Icon(Icons.shopping_cart),
+                      const SizedBox(
+                        width: 18,
+                      ),
+                      Expanded(
+                        child: TextButton(
+                            style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStatePropertyAll(darkBlue)),
+                            onPressed: () {},
+                            child: const Text(
+                              "Send Inquiry",
+                              style: TextStyle(color: Colors.white),
+                            )),
+                      )
+                    ],
+                  ),
                 )
               ],
             ),
