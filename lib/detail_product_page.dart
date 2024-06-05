@@ -37,7 +37,8 @@ class _DetailProductPageState extends State<DetailProductPage> {
       });
     }
 
-    TextEditingController searchController = TextEditingController(text: "");
+    TextEditingController searchController =
+        TextEditingController(text: "Dipentene");
     PageProvider pageProvider = Provider.of<PageProvider>(context);
 
     Widget changeContent() {
@@ -192,7 +193,7 @@ class _DetailProductPageState extends State<DetailProductPage> {
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         color: Colors.white),
-                    child: TextField(
+                    child: TextFormField(
                       style: primaryText,
                       onChanged: (value) => updateFound(value),
                       controller: searchController,
