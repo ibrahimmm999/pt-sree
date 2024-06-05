@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sree/detail_product_page.dart';
 import 'package:sree/providers/page_provider.dart';
+import 'package:sree/providers/product_provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,6 +17,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => PageProvider()),
+        ChangeNotifierProvider(create: (context) => ProductProvider()),
       ],
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,

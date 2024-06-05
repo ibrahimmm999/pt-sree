@@ -1,20 +1,43 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:sree/contents/app_page.dart';
 import 'package:sree/contents/desc_page.dart';
+import 'package:sree/models/product_model.dart';
 import 'package:sree/providers/page_provider.dart';
+import 'package:sree/providers/product_provider.dart';
 import 'package:sree/shared/theme.dart';
 import 'package:sree/widgets/header.dart';
 import 'package:sree/widgets/navigation_item.dart';
 
-class DetailProductPage extends StatelessWidget {
+class DetailProductPage extends StatefulWidget {
   const DetailProductPage({super.key});
 
   @override
+  State<DetailProductPage> createState() => _DetailProductPageState();
+}
+
+class _DetailProductPageState extends State<DetailProductPage> {
+  List<ProductModel> foundProduct = [];
+  @override
   Widget build(BuildContext context) {
-    TextEditingController searchController = TextEditingController();
+    ProductProvider productProvider = Provider.of<ProductProvider>(context);
+
+    void updateFound(String value) {
+      setState(() {
+        if (value.isNotEmpty) {
+          foundProduct = productProvider.products
+              .where((product) => product.productName
+                  .toLowerCase()
+                  .contains(value.toLowerCase()))
+              .toList();
+        } else {
+          foundProduct = [];
+        }
+        print(foundProduct);
+      });
+    }
+
+    TextEditingController searchController = TextEditingController(text: "");
     PageProvider pageProvider = Provider.of<PageProvider>(context);
 
     Widget changeContent() {
@@ -137,7 +160,7 @@ class DetailProductPage extends StatelessWidget {
                           backgroundColor: MaterialStatePropertyAll(darkBlue)),
                       onPressed: () {},
                       child: const Text(
-                        "Download TDS",
+                        "Download MSDS",
                         style: TextStyle(color: Colors.white),
                       )),
                 )
@@ -152,41 +175,46 @@ class DetailProductPage extends StatelessWidget {
       return ListView(
         padding: const EdgeInsets.only(
           top: 80,
-          bottom: 20,
+          bottom: 80,
         ),
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Icon(
-                Icons.arrow_back_ios,
-                color: Colors.white,
-              ),
-              Expanded(
-                child: Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.white),
-                  child: TextFormField(
-                    controller: searchController,
-                    decoration: InputDecoration(
-                        prefixIcon: const Icon(Icons.search),
-                        hintText: "Search",
-                        border: OutlineInputBorder(
-                            borderSide: BorderSide.none,
-                            borderRadius: BorderRadius.circular(10))),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Icon(
+                  Icons.arrow_back_ios,
+                  color: Colors.white,
+                ),
+                Expanded(
+                  child: Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.white),
+                    child: TextField(
+                      style: primaryText,
+                      onChanged: (value) => updateFound(value),
+                      controller: searchController,
+                      decoration: InputDecoration(
+                          prefixIcon: const Icon(Icons.search),
+                          hintText: "Search",
+                          border: OutlineInputBorder(
+                              borderSide: BorderSide.none,
+                              borderRadius: BorderRadius.circular(10))),
+                    ),
                   ),
                 ),
-              ),
-              Container(
-                  height: 60,
-                  margin: const EdgeInsets.only(left: 10),
-                  padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: const Color(0xff1BA2CA)),
-                  child: Image.asset('assets/cart.png'))
-            ],
+                Container(
+                    height: 60,
+                    margin: const EdgeInsets.only(left: 10),
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: const Color(0xff1BA2CA)),
+                    child: Image.asset('assets/cart.png'))
+              ],
+            ),
           ),
           card(),
           Container(
@@ -244,50 +272,43 @@ class DetailProductPage extends StatelessWidget {
     }
 
     return Scaffold(
-      body: Stack(
-        children: [
-          const Header(
-            height: 0.3,
-          ),
-          body(),
-          Padding(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Container(
-                  decoration:
-                      BoxDecoration(color: Colors.white.withOpacity(0.8)),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Icon(Icons.chat),
-                      const SizedBox(
-                        width: 18,
-                      ),
-                      const Icon(Icons.shopping_cart),
-                      const SizedBox(
-                        width: 18,
-                      ),
-                      Expanded(
-                        child: TextButton(
-                            style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStatePropertyAll(darkBlue)),
-                            onPressed: () {},
-                            child: const Text(
-                              "Send Inquiry",
-                              style: TextStyle(color: Colors.white),
-                            )),
-                      )
-                    ],
-                  ),
-                )
-              ],
+        body: Stack(
+          children: [
+            const Header(
+              height: 0.3,
             ),
-          )
-        ],
-      ),
-    );
+            body(),
+          ],
+        ),
+        bottomNavigationBar: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+            child: Container(
+              padding: const EdgeInsets.only(top: 20),
+              decoration: BoxDecoration(color: Colors.white.withOpacity(0.8)),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Icon(Icons.chat),
+                  const SizedBox(
+                    width: 18,
+                  ),
+                  const Icon(Icons.shopping_cart),
+                  const SizedBox(
+                    width: 18,
+                  ),
+                  Expanded(
+                    child: TextButton(
+                        style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStatePropertyAll(darkBlue)),
+                        onPressed: () {},
+                        child: const Text(
+                          "Send Inquiry",
+                          style: TextStyle(color: Colors.white),
+                        )),
+                  ),
+                ],
+              ),
+            )));
   }
 }

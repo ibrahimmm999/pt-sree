@@ -7,15 +7,19 @@ import 'package:sree/models/product_model.dart';
 import 'package:sree/services/url_service.dart';
 
 class ProductService {
-  Future<List<ProductModel>> getProduct() async {
-    var url = UrlService().productApi();
-    // var headers = {
-    //   'Content-Type': 'application/json',
-    // };
-
+  Future<List<ProductModel>> getProduct({String search = ''}) async {
+    late Uri url;
+    var headers = {
+      'Content-Type': 'application/json',
+    };
+    if (search.isEmpty) {
+      url = UrlService().productApi('dipentene');
+    } else {
+      url = UrlService().productApi(search);
+    }
     var response = await http.get(
       url,
-      // headers: headers,
+      headers: headers,
     );
 
     if (response.statusCode == 200) {

@@ -1,10 +1,10 @@
 class UrlService {
-  final String _productUrl = 'https://tradeasia.sg//en/dipentene';
+  final String _productUrl = 'https://tradeasia.sg//en/';
   // String _baseUrl = '';
   // Uri api(String param) {
   //   return Uri.parse(baseUrl + param);
   // }
-  Uri productApi() {
-    return Uri.parse(_productUrl);
+  Uri productApi(String param) {
+    return Uri.parse(_productUrl + param);
   }
 }
